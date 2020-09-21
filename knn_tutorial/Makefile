@@ -30,6 +30,9 @@ default: all
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS) $(LIBS)
 
+knn5: knn5.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS) $(LIBS)
+
 .PHONY: all
 all: $(TARGET)
 
