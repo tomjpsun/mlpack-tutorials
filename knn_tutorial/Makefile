@@ -22,7 +22,7 @@ CXXFLAGS  += $(INCLFLAGS)
 
 OBJS := $(SRC:.cpp=.o)
 LIBS := $(addprefix -l,$(LIBS_NAME))
-CLEAN_LIST := $(TARGET) $(OBJS) *.csv knn5 knn5.o
+CLEAN_LIST := $(TARGET) $(OBJS) *.csv k_neighbor_search k_neighbor_search.o
 
 # default rule
 default: all
@@ -30,7 +30,7 @@ default: all
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS) $(LIBS)
 
-knn5: knn5.cpp
+k_neighbor_search: k_neighbor_search.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS) $(LIBS)
 
 .PHONY: all
