@@ -22,7 +22,7 @@ CXXFLAGS  += $(INCLFLAGS)
 
 OBJS := $(SRC:.cpp=.o)
 LIBS := $(addprefix -l,$(LIBS_NAME))
-CLEAN_LIST := $(TARGET) $(OBJS) *.csv
+CLEAN_LIST := $(TARGET) $(OBJS) *.csv knn5 knn5.o
 
 # default rule
 default: all
