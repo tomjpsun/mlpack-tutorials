@@ -16,3 +16,10 @@ echo 'c++ 5 nearest neighbors on a single dataset'
 make k_neighbor_search
 echo 'use dataset self as query set, this is also called naive search'
 ./k_neighbor_search
+echo '----------'
+echo 'The rest of this html introduces NeighborSearch, SortPolicy'
+echo ', MetricType, TreeType and TraverseType classes, all are '
+echo 'basic templates used in MLPack.'
+echo ''
+echo 'TraverseType is related with Dual Tree Traversal Algorithms, '
+echo 'for more reference: [Tree-Independent Dual-Tree Algorithms] by Ryan R. Curtin et al.'
