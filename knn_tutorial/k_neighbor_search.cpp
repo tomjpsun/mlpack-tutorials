@@ -8,16 +8,32 @@ using namespace std;
 using namespace arma;
 using namespace mlpack;
 
+arma::mat gen_lattice_points()
+{
+	arma::mat m(1000, 3);
+	int idx = 0;
+	for (int i=0; i< 10; i++)
+		for (int j=0; j<10; j++)
+			for (int k=0; k<10; k++) {
+				m.row(idx++) =
+					rowvec{ double(i),
+						double(j),
+						double(k) };
+			}
+	return m;
+}
+
 int main()
 {
         // Our dataset matrix, which is column-major.
-	string src("points_1000.csv");
+
 	string neighbors("neighbors_out_4.csv");
 	string distances("distances_out_4.csv");
 
-        arma::mat data;
-	data::Load(src, data, true);
+	// transpose data, the same as in mlpack::data::Load()
+        arma::mat data = gen_lattice_points().t();
 	KNN a(data);
+
         // The matrices we will store output in.
 	arma::Mat<size_t> resultingNeighbors;
 	arma::mat resultingDistances;
@@ -29,5 +45,6 @@ int main()
 
 	std::cout << "save Distances to " << distances << std::endl;
 	resultingDistances.save(distances, csv_ascii);
+
 	return 0;
 }
