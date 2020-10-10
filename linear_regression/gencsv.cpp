@@ -17,15 +17,28 @@ enum Distribution{
 	NORMAL
 };
 
-int main()
+int main(int argc, char** argv)
 {
-	const int ROW=5;
+	const int ROW=100;
 	const int COL=2;
+	bool uniform = false;
+
+	std::mt19937 engine;  // Mersenne twister random number engine
+	std::normal_distribution<double> distr(0, 0.1);
+
+	//A.imbue( [&]() { return distr(engine); } );
+	// add uniform distribution to column
+	if (argc==2 && string(argv[0]).compare(string("--normal"))) {
+		uniform = true;
+	}
 
 	mat A(ROW, COL);
 	for (int idx = 0; idx < ROW; idx++) {
-		A.row(idx) = rowvec{ double(idx), double(idx) };
+		A.row(idx) = rowvec{ double(idx),
+				     (uniform)? idx + distr(engine): double(idx) };
 	}
+	colvec C = randu<colvec>( ROW );
+
 	A.save( "dataset.csv", csv_ascii );
 
 	// generate predict.csv
