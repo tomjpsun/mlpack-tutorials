@@ -4,8 +4,8 @@
 # If you're not using the Armadillo wrapper, replace `armadillo` with linker commands
 # for the BLAS and LAPACK libraries that you are using.
 
-TARGET := gencsv
-SRC := gencsv.cpp
+TARGET := gencsv lrmodel
+SRC := gencsv.cpp lrmodel.cpp
 LIBS_NAME := armadillo mlpack
 
 CXX := g++
@@ -22,15 +22,15 @@ CXXFLAGS  += $(INCLFLAGS)
 
 OBJS := $(SRC:.cpp=.o)
 LIBS := $(addprefix -l,$(LIBS_NAME))
-CLEAN_LIST := $(TARGET) $(OBJS) *.csv k_neighbor_search k_neighbor_search.o
+CLEAN_LIST := $(TARGET) $(OBJS) *.csv
 
 # default rule
 default: all
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS) $(LIBS)
+gencsv: gencsv.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS) $(LIBS)
 
-k_neighbor_search: k_neighbor_search.cpp
+lrmodel: lrmodel.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS) $(LIBS)
 
 .PHONY: all
