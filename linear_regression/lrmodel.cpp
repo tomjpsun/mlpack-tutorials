@@ -8,35 +8,25 @@ using namespace arma;
 using namespace mlpack;
 using namespace mlpack::regression;
 
+arma::rowvec beta{
+	0.2,
+	2.3,
+	7.8
+};
 
-void debug_dump(std::string data_file)
+int main()
 {
-	mat tempDataset;
-	data::Load(data_file, tempDataset, true);
-	cout << tempDataset << endl;
-}
-
-void sync_execute_shell(string cmd)
-{
-	FILE * fp;
-	char buffer[80];
-	fp = popen(cmd.c_str(), "r");
-	fgets(buffer, sizeof(buffer), fp);
-	pclose(fp);
-}
-
-int main(int argc, char** argv)
-{
-
-	const string data_filename("dataset.csv");
-	const string pred_filename("predict.csv");
-	sync_execute_shell("./gencsv");
-	arma::mat data; // The dataset itself.
-	data::Load(data_filename, data, true);
-	arma::rowvec responses(100); // The responses, one row for each row in data.
-	for (int i=0; i<100; i++) responses[i]=2*i;
+	arma::mat X; // The dataset itself.
+	// generate points on x-y plane
+	X.randu(2, 100);
+	// responses are the z-values
+	arma::rowvec responses(100);
+	for (int i=0; i<100; i++)
+		responses[i] = beta[0] +
+			beta[1] * X(0,i) +
+			beta[2] * X(1,i);
         // Regress.
-	LinearRegression lr(data, responses);
+	LinearRegression lr(X, responses);
         // Get the parameters, or coefficients.
 	arma::vec parameters = lr.Parameters();
 	cout << "beta = " << parameters << endl;
