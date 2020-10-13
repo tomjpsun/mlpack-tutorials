@@ -1,3 +1,9 @@
+/*
+   Ridge regression with lambda
+   based on the equation in the middle of the following post:
+   https://towardsdatascience.com/ridge-regression-for-better-usage-2f19b3a202db
+*/
+
 #include <iostream>
 #include <cerrno>
 #include <mlpack/core.hpp>
@@ -7,6 +13,10 @@ using namespace std;
 using namespace arma;
 using namespace mlpack;
 using namespace mlpack::regression;
+
+// beta values to generate response data,
+// the regressor can 'solve' these coefficients
+// from given response data
 
 arma::rowvec beta{
 	0.2,
