@@ -4,12 +4,12 @@
 # If you're not using the Armadillo wrapper, replace `armadillo` with linker commands
 # for the BLAS and LAPACK libraries that you are using.
 
-TARGET := gencsv
-SRC := gencsv.cpp
+TARGET := gencsv rs
+SRC := gencsv.cpp rs.cpp
 LIBS_NAME := armadillo mlpack
 
 CXX := g++
-CXXFLAGS += -std=c++11 -Wall -Wextra -O3 -DNDEBUG -fopenmp
+CXXFLAGS += -std=c++17 -Wall -Wextra -O3 -DNDEBUG -fopenmp
 # Use these CXXFLAGS instead if you want to compile with debugging symbols and
 # without optimizations.
 # CXXFLAGS += -std=c++11 -Wall -Wextra -g -O0
@@ -28,6 +28,9 @@ CLEAN_LIST := $(TARGET) $(OBJS) *.csv
 default: all
 
 gencsv: gencsv.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS) $(LIBS)
+
+rs: rs.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS) $(LIBS)
 
 .PHONY: all
