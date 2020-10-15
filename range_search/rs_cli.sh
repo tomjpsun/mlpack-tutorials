@@ -11,3 +11,4 @@ echo '----------'
 echo 'One dataset, range [0.7 0.8], leaf size of 15 points'
 mlpack_range_search -r query.csv -n neighbors_out_2.csv -d distances_out_2.csv -L 0.7 -U 0.8 -l 15 -v
 echo '----------'
+./rs

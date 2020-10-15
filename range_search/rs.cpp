@@ -3,8 +3,8 @@
 #include <iostream>
 #include <mlpack/core/math/range.hpp>
 #include <mlpack/methods/range_search/range_search.hpp>
+
 #include <mlpack/core.hpp>
-#include <type_traits>
 
 
 using namespace std;
@@ -33,18 +33,24 @@ void dump(T& obj)
 	}
 }
 
-// Our dataset matrix, which is column-major.
-void demo_1(arma::mat& data)
+
+void range_search(arma::mat& ref, arma::mat& query, double lower_bound, double upper_bound)
 {
-	RangeSearch<> a(data);
+	RangeSearch<> a(ref);
 
         // The vector-of-vector objects we will store output in.
 	vector<std::vector<size_t> > resultingNeighbors;
 	vector<std::vector<double> > resultingDistances;
 
-        // The range we will use.
-	mlpack::math::Range r(0.0, 2.0); // [0.0, 2.0].
-	a.Search(r, resultingNeighbors, resultingDistances);
+	mlpack::math::Range range(lower_bound, upper_bound);
+
+	if (query.is_empty()) {
+        // The range search with 3 params.
+		a.Search(range, resultingNeighbors, resultingDistances);
+	} else {
+	// The range search with 4 params.
+		a.Search(query, range, resultingNeighbors, resultingDistances);
+	}
 
 	cout << "resultingNeighbors:" << endl;
 	dump<vector<std::vector<size_t>>>(resultingNeighbors);
@@ -56,7 +62,23 @@ void demo_1(arma::mat& data)
 
 int main()
 {
+	mat Q(0,0);
 	mat B = randu<mat>(3, 50);
-	demo_1(B);
+
+	// Query size is empty - use range search with 3 params
+	cout << "Distance less than 2.0 on a single dataset" << endl;
+	range_search(B, Q, 0.0, 2.0);
+	cout << "----------" << endl;
+
+	cout << "Range [1.0, 2.0] on a query and reference dataset" << endl;
+	// Query size is not empty - use range with 4 params
+	Q = randu<mat>(3, 10);
+	range_search(B, Q, 1.0, 2.0);
+	cout << "----------" << endl;
+
+	cout << "Naive (exhaustive) search for distance greater than 5.0 on one dataset" << endl;
+	cout << "skipped, since its the same usage with previous examples" << endl;
+	cout << "----------" << endl;
+
 	return 0;
 }
