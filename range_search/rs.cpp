@@ -33,7 +33,8 @@ void dump(T& obj)
 	}
 }
 
-
+// given reference & query set, lower & upper bound, make range search on the sets,
+// if query set is empty, then make range search on reference set (with itself)
 void range_search(arma::mat& ref, arma::mat& query, double lower_bound, double upper_bound)
 {
 	RangeSearch<> a(ref);
@@ -62,7 +63,9 @@ void range_search(arma::mat& ref, arma::mat& query, double lower_bound, double u
 
 int main()
 {
+	// query set
 	mat Q(0,0);
+	// reference set
 	mat B = randu<mat>(3, 50);
 
 	// Query size is empty - use range search with 3 params
