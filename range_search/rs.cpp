@@ -3,9 +3,9 @@
 #include <iostream>
 #include <mlpack/core/math/range.hpp>
 #include <mlpack/methods/range_search/range_search.hpp>
-
 #include <mlpack/core.hpp>
-
+#include <mlpack/core/tree/binary_space_tree.hpp>
+#include <mlpack/core/tree/cover_tree.hpp>
 
 using namespace std;
 using namespace arma;
@@ -40,8 +40,8 @@ void range_search(arma::mat& ref, arma::mat& query, double lower_bound, double u
 	RangeSearch<> a(ref);
 
         // The vector-of-vector objects we will store output in.
-	vector<std::vector<size_t> > resultingNeighbors;
-	vector<std::vector<double> > resultingDistances;
+	vector<vector<size_t> > resultingNeighbors;
+	vector<vector<double> > resultingDistances;
 
 	mlpack::math::Range range(lower_bound, upper_bound);
 
@@ -54,10 +54,10 @@ void range_search(arma::mat& ref, arma::mat& query, double lower_bound, double u
 	}
 
 	cout << "resultingNeighbors:" << endl;
-	dump<vector<std::vector<size_t>>>(resultingNeighbors);
+	dump<vector<vector<size_t>>>(resultingNeighbors);
 
 	cout << "resultingDistances:" << endl;
-	dump<vector<std::vector<double>>>(resultingDistances);
+	dump<vector<vector<double>>>(resultingDistances);
 
 }
 
@@ -83,5 +83,21 @@ int main()
 	cout << "skipped, since its the same usage with previous examples" << endl;
 	cout << "----------" << endl;
 
-	return 0;
+        // Construct a RangeSearch object with ball bounds,
+	// tree type is derived from binary_space_tree.hpp
+	RangeSearch<
+		metric::EuclideanDistance,
+		arma::mat,
+		tree::BallTree
+		> rangeSearchBallTree();
+
+        // Construct a RangeSearch object with cover tree,
+	// tree type is derived from cover_tree.hpp
+	RangeSearch<
+		metric::EuclideanDistance,
+		arma::mat,
+		tree::StandardCoverTree
+		> rangeSearchCoverTree();
+
+		return 0;
 }
