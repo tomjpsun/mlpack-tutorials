@@ -30,10 +30,12 @@ all: 	$(TARGET)
 
 # Objects generation
 $(ODIR)/%.o:    %.cpp
+	@$(call make-dirs)
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c -MMD $< -o $@
 
 # Generating dependencies
 $(ODIR)/%.d:    %.cpp
+	@$(call make-dirs)
 	$(CXX) -M $(CXXFLAGS) $(INCFLAGS) $< > $@
 
 $(TARGET): $(OBJS)

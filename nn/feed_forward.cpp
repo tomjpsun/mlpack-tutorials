@@ -9,7 +9,8 @@ using namespace mlpack;
 using namespace mlpack::ann;
 
 void RNNModel();
-void GenerateNoisySines(arma::mat& data,
+
+void GenerateNoisySines(arma::cube& data,
                         arma::mat& labels,
                         const size_t points,
                         const size_t sequences,
@@ -70,9 +71,5 @@ int feed_forward()
 int main()
 {
 	feed_forward();
-	const size_t rho = 10;
-	// Generate 12 (2 * 6) noisy sines. A single sine contains rho
-	// points/features.
-	arma::mat input, labelsTemp;
-	GenerateNoisySines(input, labelsTemp, rho, 6);
+	RNNModel();
 }
