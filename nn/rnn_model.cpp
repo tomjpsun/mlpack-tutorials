@@ -32,7 +32,7 @@ void GenerateNoisySines(arma::mat& data,
 	}
 }
 
-#if 0
+
 void RNNModel()
 {
 	const size_t rho = 10;
@@ -60,4 +60,3 @@ void RNNModel()
 	StandardSGD opt(0.1, 1, input.n_cols /* 1 epoch */, -100);
 	model.Train(input, labels, opt);
 }
-#endif

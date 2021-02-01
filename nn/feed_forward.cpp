@@ -2,12 +2,13 @@
 #include <mlpack/methods/ann/layer/layer.hpp>
 #include <mlpack/methods/ann/ffn.hpp>
 
-void RNNModel();
+
 
 using namespace arma;
 using namespace mlpack;
 using namespace mlpack::ann;
 
+void RNNModel();
 void GenerateNoisySines(arma::mat& data,
                         arma::mat& labels,
                         const size_t points,
