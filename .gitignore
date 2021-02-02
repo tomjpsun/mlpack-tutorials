@@ -33,3 +33,6 @@
 
 # Emacs temp
 *~
+
+# Max cookie
+*.DS_Store
