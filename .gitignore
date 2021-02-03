@@ -36,3 +36,4 @@
 
 # Max cookie
 *.DS_Store
+*.csv

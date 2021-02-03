@@ -7,7 +7,7 @@
 TARGET := demo
 
 ODIR=obj
-SRCS := feed_forward.cpp rnn_model.cpp
+SRCS := feed_forward.cpp rnn_model.cpp pipe_cmd.cpp
 OBJS=$(patsubst %.cpp, $(ODIR)/%.o, $(SRCS))
 DEPS=$(patsubst %.cpp, $(ODIR)/%.d, $(SRCS))
 

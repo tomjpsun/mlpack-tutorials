@@ -2,27 +2,27 @@
 #include <mlpack/methods/ann/layer/layer.hpp>
 #include <mlpack/methods/ann/ffn.hpp>
 
-
-
 using namespace arma;
 using namespace mlpack;
 using namespace mlpack::ann;
 
+std::string exec(const char* cmd);
 void RNNModel();
-
 void GenerateNoisySines(arma::cube& data,
                         arma::mat& labels,
                         const size_t points,
                         const size_t sequences,
                         const double noise = 0.3);
 
+
 int feed_forward()
 {
 	// Load the training set and testing set.
 	arma::mat trainData;
-	data::Load("iris_train.csv", trainData, true);
+
+	data::Load("./thyroid_train.csv", trainData, true);
 	arma::mat testData;
-	data::Load("iris_test.csv", testData, true);
+	data::Load("./thyroid_test.csv", testData, true);
 	// Split the labels from the training set and testing set respectively.
 	arma::mat trainLabels = trainData.row(trainData.n_rows - 1);
 	arma::mat testLabels = testData.row(testData.n_rows - 1);
@@ -70,6 +70,8 @@ int feed_forward()
 
 int main()
 {
+	// thyroid_(train|test).csv is get from mlpack/src/mlpack/tests/data/
+	exec("tar xzvf ../datasets/thyroid.gz");
 	feed_forward();
 	RNNModel();
 }
